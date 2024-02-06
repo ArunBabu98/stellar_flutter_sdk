@@ -120,6 +120,10 @@ abstract class RequestBuilder {
 
   Uri buildUri() {
     Uri build = uriBuilder;
+    // For accomodating private API key request in URL
+    if (build.pathSegments.length > 0) {
+      _segments.insert(0, build.pathSegments.first);
+    }
 
     if (_segments.length > 0) {
       build = build.replace(
@@ -129,7 +133,6 @@ abstract class RequestBuilder {
     if (queryParameters.length > 0) {
       build = build.replace(queryParameters: queryParameters);
     }
-
     return build;
   }
 
