@@ -65,7 +65,7 @@ abstract class RequestBuilder {
   bool _segmentsAdded = false;
   late Map<String, String> queryParameters;
   static final Map<String, String> headers = {
-    "X-Client-Name": "stellar_flutter_sdk",
+    "X-Client-Name": "Securus Wallet",
     "X-Client-Version": StellarSDK.versionNumber
   };
 
@@ -120,6 +120,10 @@ abstract class RequestBuilder {
 
   Uri buildUri() {
     Uri build = uriBuilder;
+    // For accomodating private API key request in URL
+    if (build.pathSegments.length > 0) {
+      _segments.insert(0, build.pathSegments.first);
+    }
 
     if (_segments.length > 0) {
       build = build.replace(
@@ -137,7 +141,6 @@ abstract class RequestBuilder {
         },
       );
     }
-
     return build;
   }
 

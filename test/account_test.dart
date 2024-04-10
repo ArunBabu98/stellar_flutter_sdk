@@ -42,7 +42,8 @@ void main() {
 
     transaction.sign(keyPairA, Network.TESTNET);
 
-    SubmitTransactionResponse response = await sdk.submitTransaction(transaction);
+    SubmitTransactionResponse response =
+        await sdk.submitTransaction(transaction);
     assert(response.success);
     TestUtils.resultDeAndEncodingTest(transaction, response);
 
@@ -72,7 +73,8 @@ void main() {
     assert(accountA.flags.authImmutable == false);
 
     // Find account for signer.
-    Page<AccountResponse> accounts = await sdk.accounts.forSigner(keyPairB.accountId).execute();
+    Page<AccountResponse> accounts =
+        await sdk.accounts.forSigner(keyPairB.accountId).execute();
     aFound = false;
     for (AccountResponse? account in accounts.records!) {
       if (account!.accountId == keyPairA.accountId) {
@@ -94,12 +96,14 @@ void main() {
 
     // fund account C.
     Transaction transaction = new TransactionBuilder(accountA)
-        .addOperation(new CreateAccountOperationBuilder(accountCId, "10").build())
+        .addOperation(
+            new CreateAccountOperationBuilder(accountCId, "10").build())
         .build();
 
     transaction.sign(keyPairA, Network.TESTNET);
 
-    SubmitTransactionResponse response = await sdk.submitTransaction(transaction);
+    SubmitTransactionResponse response =
+        await sdk.submitTransaction(transaction);
     assert(response.success);
     TestUtils.resultDeAndEncodingTest(transaction, response);
 
@@ -110,7 +114,9 @@ void main() {
     ChangeTrustOperation changeTrustOperation =
         ChangeTrustOperationBuilder(iomAsset, "200999").build();
 
-    transaction = new TransactionBuilder(accountC).addOperation(changeTrustOperation).build();
+    transaction = new TransactionBuilder(accountC)
+        .addOperation(changeTrustOperation)
+        .build();
 
     transaction.sign(keyPairC, Network.TESTNET);
 
@@ -140,15 +146,18 @@ void main() {
     await FriendBot.fundTestAccount(accountXId);
     await FriendBot.fundTestAccount(accountYId);
 
-    AccountMergeOperation accountMergeOperation = AccountMergeOperationBuilder(accountXId).build();
+    AccountMergeOperation accountMergeOperation =
+        AccountMergeOperationBuilder(accountXId).build();
 
     AccountResponse accountY = await sdk.accounts.account(accountYId);
-    Transaction transaction =
-        TransactionBuilder(accountY).addOperation(accountMergeOperation).build();
+    Transaction transaction = TransactionBuilder(accountY)
+        .addOperation(accountMergeOperation)
+        .build();
 
     transaction.sign(keyPairY, Network.TESTNET);
 
-    SubmitTransactionResponse response = await sdk.submitTransaction(transaction);
+    SubmitTransactionResponse response =
+        await sdk.submitTransaction(transaction);
     assert(response.success);
     TestUtils.resultDeAndEncodingTest(transaction, response);
 
@@ -174,17 +183,20 @@ void main() {
     MuxedAccount muxedSourceAccount = MuxedAccount(accountYId, 9999999999);
 
     AccountMergeOperation accountMergeOperation =
-        AccountMergeOperationBuilder.forMuxedDestinationAccount(muxedDestinationAccount)
+        AccountMergeOperationBuilder.forMuxedDestinationAccount(
+                muxedDestinationAccount)
             .setMuxedSourceAccount(muxedSourceAccount)
             .build();
 
     AccountResponse accountY = await sdk.accounts.account(accountYId);
-    Transaction transaction =
-        TransactionBuilder(accountY).addOperation(accountMergeOperation).build();
+    Transaction transaction = TransactionBuilder(accountY)
+        .addOperation(accountMergeOperation)
+        .build();
 
     transaction.sign(keyPairY, Network.TESTNET);
 
-    SubmitTransactionResponse response = await sdk.submitTransaction(transaction);
+    SubmitTransactionResponse response =
+        await sdk.submitTransaction(transaction);
     assert(response.success);
     TestUtils.resultDeAndEncodingTest(transaction, response);
 
@@ -215,7 +227,8 @@ void main() {
 
     transaction.sign(keyPair, Network.TESTNET);
 
-    SubmitTransactionResponse response = await sdk.submitTransaction(transaction);
+    SubmitTransactionResponse response =
+        await sdk.submitTransaction(transaction);
     assert(response.success);
     TestUtils.resultDeAndEncodingTest(transaction, response);
 
@@ -238,13 +251,16 @@ void main() {
     List<int> list = value.codeUnits;
     Uint8List valueBytes = Uint8List.fromList(list);
 
-    ManageDataOperation manageDataOperation = ManageDataOperationBuilder(key, valueBytes).build();
+    ManageDataOperation manageDataOperation =
+        ManageDataOperationBuilder(key, valueBytes).build();
 
-    Transaction transaction = TransactionBuilder(account).addOperation(manageDataOperation).build();
+    Transaction transaction =
+        TransactionBuilder(account).addOperation(manageDataOperation).build();
 
     transaction.sign(keyPair, Network.TESTNET);
 
-    SubmitTransactionResponse response = await sdk.submitTransaction(transaction);
+    SubmitTransactionResponse response =
+        await sdk.submitTransaction(transaction);
     assert(response.success);
     TestUtils.resultDeAndEncodingTest(transaction, response);
 
@@ -257,7 +273,8 @@ void main() {
 
     manageDataOperation = ManageDataOperationBuilder(key, null).build();
 
-    transaction = TransactionBuilder(account).addOperation(manageDataOperation).build();
+    transaction =
+        TransactionBuilder(account).addOperation(manageDataOperation).build();
     transaction.sign(keyPair, Network.TESTNET);
 
     response = await sdk.submitTransaction(transaction);
@@ -272,7 +289,8 @@ void main() {
     String med25519AccountId =
         'MAQAA5L65LSYH7CQ3VTJ7F3HHLGCL3DSLAR2Y47263D56MNNGHSQSAAAAAAAAAAE2LP26';
     MuxedAccount? mux = MuxedAccount.fromAccountId(med25519AccountId);
-    assert(mux!.ed25519AccountId == 'GAQAA5L65LSYH7CQ3VTJ7F3HHLGCL3DSLAR2Y47263D56MNNGHSQSTVY');
+    assert(mux!.ed25519AccountId ==
+        'GAQAA5L65LSYH7CQ3VTJ7F3HHLGCL3DSLAR2Y47263D56MNNGHSQSTVY');
     assert(mux!.id == 1234);
     assert(mux!.accountId == med25519AccountId);
   });
@@ -293,9 +311,8 @@ void main() {
     transaction.sign(keyPairA, Network.TESTNET);
 
     SubmitTransactionResponse response =
-    await sdk.submitTransaction(transaction);
+        await sdk.submitTransaction(transaction);
     assert(response.success);
-
 
     String amount = "10";
     int count = 0;
@@ -313,20 +330,20 @@ void main() {
         AccountResponse accountB = await sdk.accounts.account(accountBId);
         transaction = TransactionBuilder(accountB)
             .addOperation(
-            PaymentOperationBuilder(accountAId, Asset.NATIVE, amount).build())
+                PaymentOperationBuilder(accountAId, Asset.NATIVE, amount)
+                    .build())
             .build();
         transaction.sign(keyPairB, Network.TESTNET);
-        SubmitTransactionResponse submitResponse = await sdk.submitTransaction(
-            transaction);
+        SubmitTransactionResponse submitResponse =
+            await sdk.submitTransaction(transaction);
         assert(submitResponse.success);
       }
-
     });
 
     AccountResponse accountB = await sdk.accounts.account(accountBId);
     transaction = TransactionBuilder(accountB)
         .addOperation(
-        PaymentOperationBuilder(accountAId, Asset.NATIVE, amount).build())
+            PaymentOperationBuilder(accountAId, Asset.NATIVE, amount).build())
         .build();
     transaction.sign(keyPairB, Network.TESTNET);
     response = await sdk.submitTransaction(transaction);
