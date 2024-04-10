@@ -313,6 +313,16 @@ void main() {
           request.url.toString().contains("customer") &&
           authHeader.contains(jwtToken) &&
           contentType.startsWith("multipart/form-data;")) {
+
+        // print(request.body);
+        assert(request.body.contains('first_name'));
+        assert(request.body.contains('George'));
+        assert(request.body.contains('bank_account_number'));
+        assert(request.body.contains('XX18981288373773'));
+        assert(request.body.contains('name'));
+        assert(request.body.contains('George Ltd.'));
+        assert(request.body.contains('organization.bank_account_number'));
+        assert(request.body.contains('YY76253437289616234'));
         return http.Response(requestPutCustomerInfo(), 200);
       }
 
@@ -324,6 +334,24 @@ void main() {
     request.id = customerId;
     request.account = accountId;
     request.jwt = jwtToken;
+
+    var personFields = NaturalPersonKYCFields();
+    personFields.firstName = 'George';
+    var personFinancial = FinancialAccountKYCFields();
+    personFinancial.bankAccountNumber = 'XX18981288373773';
+    personFields.financialAccountKYCFields = personFinancial;
+
+    var orgFields = OrganizationKYCFields();
+    orgFields.name = 'George Ltd.';
+    var orgFinancial = FinancialAccountKYCFields();
+    orgFinancial.bankAccountNumber = 'YY76253437289616234';
+    orgFields.financialAccountKYCFields = orgFinancial;
+
+    var kycFields = new StandardKYCFields();
+    kycFields.naturalPersonKYCFields = personFields;
+    kycFields.organizationKYCFields = orgFields;
+
+    request.kycFields = kycFields;
 
     PutCustomerInfoResponse? infoResponse = await kycService.putCustomerInfo(request);
 

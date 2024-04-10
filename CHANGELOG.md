@@ -1,3 +1,12 @@
+## [1.7.6] - 08.Apr.2024.
+- update SEP-01 currency fields: add contract field
+- improve streams in the request builders
+- update the request builder to maintain the original path and query
+
+## [1.7.5] - 23.Feb.2024.
+- update SEP-12 financial account fields
+- update SEP-06 to reflect current SEP doc version
+
 ## [1.7.4] - 01.Feb.2024.
 - add SEP-38 support
 
