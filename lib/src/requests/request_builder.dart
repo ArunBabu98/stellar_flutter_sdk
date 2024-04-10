@@ -65,7 +65,7 @@ abstract class RequestBuilder {
   bool _segmentsAdded = false;
   late Map<String, String> queryParameters;
   static final Map<String, String> headers = {
-    "X-Client-Name": "stellar_flutter_sdk",
+    "X-Client-Name": "Securus Wallet",
     "X-Client-Version": StellarSDK.versionNumber
   };
 
