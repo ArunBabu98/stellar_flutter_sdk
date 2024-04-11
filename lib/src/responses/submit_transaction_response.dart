@@ -258,7 +258,7 @@ class ExtrasResultCodes {
 /// Additional information returned by the horizon server.
 class SubmitTransactionResponseExtras {
   String envelopeXdr;
-  String resultXdr;
+  String? resultXdr;
   String? strMetaXdr;
   String? strFeeMetaXdr;
   ExtrasResultCodes? resultCodes;
@@ -269,7 +269,7 @@ class SubmitTransactionResponseExtras {
   factory SubmitTransactionResponseExtras.fromJson(Map<String, dynamic> json) =>
       SubmitTransactionResponseExtras(
           json['envelope_xdr'],
-          json['result_xdr'],
+          json['result_xdr'] == null ? null : json['result_xdr'],
           json['result_meta_xdr'],
           json['fee_meta_xdr'],
           json['result_codes'] == null
