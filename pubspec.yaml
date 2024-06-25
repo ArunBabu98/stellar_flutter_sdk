@@ -10,19 +10,18 @@ dependencies:
   flutter:
     sdk: flutter
 
-  crypto: ^3.0.2
+  crypto: ^3.0.3
   fixnum: ^1.0.1
-  http: ^1.0.0
+  http: ^1.1.0
   collection: ^1.15.0
   toml: ^0.13.1
-  pointycastle: ^3.6.2
+  pointycastle: ^3.7.3
   unorm_dart: ^0.2.0
-  decimal: ^2.3.0
+  decimal: ^3.0.2
   pinenacl: ^0.5.1
-  convert: ^3.0.2
+  convert: ^3.1.1
   http_parser: ^4.0.1
   dio: ^5.1.1
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  test: ^1.24.7

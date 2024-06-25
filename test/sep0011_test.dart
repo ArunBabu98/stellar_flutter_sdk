@@ -1,8 +1,7 @@
 // Copyright 2020 The Stellar Flutter SDK Authors. All rights reserved.
 // Use of this source code is governed by a license that can be
 // found in the LICENSE file.
-
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:stellar_flutter_sdk/stellar_flutter_sdk.dart';
 import 'dart:typed_data';
 
